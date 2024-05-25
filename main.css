@@ -1,0 +1,272 @@
+.badge{
+	bottom: -70px;
+	left: 20px;
+	width: 100px;
+	height: 100px;
+	line-height: 30px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	background-color: purple;
+	position: fixed;
+	border-radius: 5px 5px 0 0;
+
+	transition: all 500ms ease;
+}
+.badge-author{
+	font-weight: normal;
+}
+.badge:hover{
+	transform: translateY(-70px);
+	background-color: red;
+}
+
+.background{
+	background-color: white;
+	display: flex;
+	justify-content: center;
+}
+
+main{
+	width: 100vw; /*todo*/
+	height: calc(100vh - 30px);
+	margin: 5px;
+	/* margin: 0 auto; */
+	display: flex;
+	flex-wrap: wrap;
+	background-color: lightgrey;
+}
+
+.box{
+	display: grid;
+	grid-template-columns: 1fr;
+	height: fit-content;
+	grid-auto-rows: minmax(70px, auto);
+	background-color: white;
+	margin: 10px;
+	border-radius: 5px;
+}
+.items-box{
+	flex: 5 1 0;
+	padding-bottom: 7px;
+}
+.stats-box{
+	flex: 2 1 0;
+}
+.item-add-field{
+	height: 50px;
+	display: grid;
+	grid-template-columns: 9fr 2fr;
+	margin: 15px;
+}
+#item-add-text{
+	padding-left: 10px;
+	font-size: 18px;
+	border-radius: 7px 0 0 7px ;
+	border: 1px solid grey;
+}
+#item-add-button{
+	background-color: #3366ff;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	border-radius: 0 7px 7px 0;
+	border: none;
+}
+.items-list{
+	display: flex;
+	flex-direction: column;
+}
+.item{
+	display: grid;
+	height: 60px;
+	grid-template-columns: 5fr 3fr 7fr;
+	padding: 5px;
+	padding-right: 20px;
+	padding-left: 15px;
+	box-sizing: border-box;
+	border-top: 1px solid lightgray;
+}
+.item-name{
+	display: flex;
+	flex-flow: row wrap;
+	align-content: center;
+	box-sizing: border-box;
+	width: 100%;
+    font-size: 18px;
+}
+.bought{
+	text-decoration: line-through;
+}
+
+.quantity-controls {
+	width: 100%;
+    display: flex;
+    align-items: center;
+	justify-content: center;
+    margin-right: auto;
+}
+
+.quantity-value {
+	min-width: 35px;
+	max-width: fit-content;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 18px;
+	margin: 0 10px;
+	display: inline-block;
+	background-color: #e0e0e0;
+	border-radius: 5px;
+}
+.quantity-btn {
+	width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.minus {
+	background-color: red;
+}
+.disabled{
+	cursor: default;
+	opacity: 0.3;
+}
+
+.plus {
+	background-color: green;
+}
+
+.action-buttons {
+	width: 100%;
+    display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.action-btn {
+	height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    /* padding: 10px 20px;
+    margin-left: 10px; */
+	background-color: lightgrey;
+}
+
+.buy {
+	width: 100px;
+}
+
+.delete {
+	width: 40px;
+	margin-left: 5px;
+    background-color: red;
+    color: white;
+}
+
+.stats-category{
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	font-size: 20px;
+	grid-template-columns: 1fr;
+	padding: 20px;
+	border-top: 1px solid lightgrey;
+}
+.stats-items{
+	display: flex;
+	border-top: 1px solid lightgrey;
+	flex-flow: row wrap;
+	align-items: center;
+	box-sizing: border-box;
+	padding: 17px;
+}
+
+.stats-item {
+	background-color: lightgrey;
+	display: flex;
+	align-items: center;
+	height: 25px;
+	padding: 7px;
+	padding-left: 10px;
+	margin: 3px;
+	border-radius: 5px;
+	font-size: small;
+	text-decoration: inherit;
+}
+
+.amount {
+	background-color: orange;
+	border-radius: 10px;
+	
+	color: white;
+	height: 20px;
+	line-height: 20px;
+	width: 20px;
+	margin: 5px;
+	text-align: center;
+	text-decoration: inherit;
+}
+
+@media print{
+	.badge-title{
+		display: none;
+	}
+	.badge-author{
+		font-size: 10px;
+	}
+	.badge{
+		height: 30px;
+		bottom: 0px;
+		background-color: white;
+		color: black;
+		border: 1px solid purple;
+	}
+}
+
+@media (max-width: 1200px){
+	main{
+		flex-flow: column nowrap;
+	}
+	.box{
+		flex-grow: 0;
+	}
+} 
+
+.btn{
+	position: relative;
+	cursor: pointer;	
+}
+
+.btn::after {
+	content: attr(data-tooltip);
+	font-weight: normal;
+	visibility: hidden;
+	opacity: 0;
+	background-color: purple; 
+	color: white; 
+	text-align: center; 
+	border-radius: 10px;
+	padding: 5px; 
+	z-index: 1; 
+	position: absolute;
+	bottom: 50%;
+	left: 0;
+	right: 0;
+
+	transition: all 0.3s; 
+}
+  
+.btn:hover::after{
+	transform: translateY(-70%); /* Position the tooltip above the container */
+	visibility: visible;
+	opacity: 1;
+}
+  
