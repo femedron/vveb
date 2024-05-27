@@ -220,7 +220,7 @@ main{
 		display: none;
 	}
 	.badge-author{
-		font-size: 10px;
+		font-size: 8px;
 	}
 	.badge{
 		height: 30px;
@@ -245,7 +245,7 @@ main{
 	cursor: pointer;	
 }
 
-.btn::after {
+.btn[data-tooltip]::after {
 	content: attr(data-tooltip);
 	font-weight: normal;
 	visibility: hidden;
@@ -264,7 +264,7 @@ main{
 	transition: all 0.3s; 
 }
   
-.btn:hover::after{
+.btn[data-tooltip]:hover::after{
 	transform: translateY(-70%); /* Position the tooltip above the container */
 	visibility: visible;
 	opacity: 1;
