@@ -1,4 +1,3 @@
-let items_container;
 window.onload = init;
 function init(){
     document.getElementById("item-add-btn").addEventListener("click", ()=>{addItem()});
@@ -9,15 +8,13 @@ function init(){
         }
     })
 
-    items_container = document.getElementsByClassName("items-list")[0];
-    items_container.addEventListener("click", deleteItem);
     //remove
     document.querySelectorAll(".delete").forEach(btn => { btn.addEventListener('click', deleteItem);});
 
     //remove
     document.querySelectorAll('.item').forEach((item)=>{
         item.querySelectorAll('.buy').forEach(btn =>{
-            btn.addEventListener('click', ()=>{ changeBuyState(item, btn)});
+            btn.addEventListener('click', ()=>{ changeBuyState(item)});
         });
     });
 
@@ -49,24 +46,14 @@ function addItem(name = document.getElementById("item-add-text").value, quantity
     child.innerHTML =
         `<span class="item-name">${name}</span>
         <div class="quantity-controls">
-        <button class="btn quantity-btn minus ${quantity == 1 ? 'disabled" disabled="disabled' : ''}" data-tooltip="-">-
-        </button>
-        <span class="quantity-value">${quantity}</span>
-            <button class="btn quantity-btn plus" data-tooltip="+">+</button>
-            </div>
-            <div class="action-buttons">
-            <button class="btn action-btn buy" data-tooltip="tooltip">Куплено</button>
-            <button class="btn action-btn delete" data-tooltip="x">✖</button>
-            </div>`;
+            <span class="quantity-value">${quantity}</span>
+        </div>
+        <div class="action-buttons">
+        </div>`;
+    addNameInputHandler(child);
+    addItemButtons(child, true);
     if(isDisabled)
         changeBuyState(child);    
-    child.querySelectorAll('.buy').forEach(btn =>{
-        btn.addEventListener('click', ()=>{ changeBuyState(child, btn)});
-    });
-
-    addNameInputHandler(child);
-        
-    items_container.appendChild(child);
     list.appendChild(child);
 
     if(arguments.length === 0){
@@ -80,12 +67,8 @@ function addNameInputHandler(item){
     const span_field = item.querySelector('.item-name');
     span_field.addEventListener('click', ()=>{
         let prev_value = span_field.textContent;
-        //<template>
-        const template = document.createElement('template');
-        template.innerHTML = `<input type="text" class="item-name" value="${prev_value}">`;
-        const result = template.content.children;
-
-        let input_field = result[0];
+        const html = `<input type="text" class="item-name" value="${prev_value}">`;
+        let input_field = htmlElement(html);
         span_field.replaceWith(input_field);
         input_field.focus();
         input_field.addEventListener('blur', function() {
@@ -96,24 +79,47 @@ function addNameInputHandler(item){
         });
 }
 
-function changeBuyState(item, btn = item.querySelector(".buy")){
+function addItemButtons(item, isFresh = false){
+    if(isFresh){
+        const buyb = htmlElement('<button class="btn action-btn buy" data-tooltip="tooltip">Куплено</button>'); 
+        buyb.addEventListener('click', ()=>{ changeBuyState(item)});
+        item.querySelector(".action-buttons").append(buyb);
+    }
+    const quantity = item.querySelector(".quantity-value").textContent;
+    const minus = htmlElement(`<button class="btn quantity-btn minus ${quantity == 1 ? 'disabled" disabled="disabled' : ''}" data-tooltip="-">-</button>`);
+    const plus = htmlElement('<button class="btn quantity-btn plus" data-tooltip="+">+</button>');
+    const xxbtn = htmlElement('<button class="btn action-btn delete" data-tooltip="x">✖</button>');
+    //minus.addEventListener('click', todo);
+    //plus.addEventListener('click', todo);
+    xxbtn.addEventListener('click', deleteItem);
+    
+    item.querySelector(".quantity-controls").prepend(minus);    //insertAdjacentHTML('afterbegin', minus); 
+    item.querySelector(".quantity-controls").append(plus);   //insertAdjacentHTML('beforeend', plus);
+    item.querySelector(".action-buttons").append(xxbtn);
+}
+
+function removeItemButtons(item){
+    item.querySelector(".minus").remove();
+    item.querySelector(".plus").remove();
+    item.querySelector(".delete").remove();
+}
+
+function htmlElement(html){
+    let div = document.createElement('div');
+    div.innerHTML = html.trim();
+    return div.firstChild;
+}
+
+function changeBuyState(item){
+    const btn = item.querySelector(".buy");
     if(item.classList.contains('bought')){
         item.classList.remove('bought');
         btn.textContent = "Куплено";
-
-        const quantity = item.querySelector(".quantity-value").textContent;
-        const minus = `<button class="btn quantity-btn minus ${quantity == 1 ? 'disabled" disabled="disabled' : ''}" data-tooltip="-">-</button>`;
-        const plus = '<button class="btn quantity-btn plus" data-tooltip="+">+</button>';
-        const xxbtn = '<button class="btn action-btn delete" data-tooltip="x">✖</button>';
-        item.querySelector(".quantity-controls").insertAdjacentHTML('afterbegin', minus);
-        item.querySelector(".quantity-controls").insertAdjacentHTML('beforeend', plus);
-        item.querySelector(".action-buttons").insertAdjacentHTML('beforeend', xxbtn);
+        //todo hide
+        addItemButtons(item);
     } else{
         item.classList.add('bought');
         btn.textContent = "Не куплено";
-
-        item.querySelector(".minus").remove();
-        item.querySelector(".plus").remove();
-        item.querySelector(".delete").remove();
+        removeItemButtons(item);
     }
 }
