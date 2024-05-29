@@ -18,6 +18,17 @@ function init(){
             btn.addEventListener('click', ()=>{ changeBuyState(item, btn)});
         });
     });
+
+    initItems();
+}
+
+function initItems(){
+    addItem("Памідор");
+    addItem("Один елбан", 1);
+    addItem("Два елбана", 2);
+    addItem("Три елбана", 3, false);
+    addItem("Дцп1", 1, true);
+    addItem("Дцп2", 2, true);
 }
 
 function deleteItem(e){
@@ -29,7 +40,7 @@ function deleteItem(e){
     }
 }
 
-function addItem(name = document.getElementById("item-add-text").value, quantity = 1){
+function addItem(name = document.getElementById("item-add-text").value, quantity = 1, isDisabled = false){
     const list = document.getElementsByClassName("items-list")[0];
     const child = document.createElement("div");
     child.className = "item";
@@ -44,7 +55,9 @@ function addItem(name = document.getElementById("item-add-text").value, quantity
             <div class="action-buttons">
             <button class="btn action-btn buy" data-tooltip="tooltip">Куплено</button>
             <button class="btn action-btn delete" data-tooltip="x">✖</button>
-            </div>`
+            </div>`;
+    if(isDisabled)
+        changeBuyState(child);    
     list.appendChild(child);
     child.querySelectorAll('.buy').forEach(btn =>{
         btn.addEventListener('click', ()=>{ changeBuyState(child, btn)});
@@ -58,7 +71,7 @@ function addItem(name = document.getElementById("item-add-text").value, quantity
     }
 }
 
-function changeBuyState(item, btn){
+function changeBuyState(item, btn = item.querySelector(".buy")){
     if(item.classList.contains('bought')){
         item.classList.remove('bought');
         btn.textContent = "Куплено";
