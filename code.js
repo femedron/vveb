@@ -8,10 +8,10 @@ function init(){
         }
     })
 
-    //remove
+    //todo remove
     document.querySelectorAll(".delete").forEach(btn => { btn.addEventListener('click', deleteItem);});
 
-    //remove
+    //todo remove
     document.querySelectorAll('.item').forEach((item)=>{
         item.querySelectorAll('.buy').forEach(btn =>{
             btn.addEventListener('click', ()=>{ changeBuyState(item)});
@@ -86,16 +86,32 @@ function addItemButtons(item, isFresh = false){
         item.querySelector(".action-buttons").append(buyb);
     }
     const quantity = item.querySelector(".quantity-value").textContent;
-    const minus = htmlElement(`<button class="btn quantity-btn minus ${quantity == 1 ? 'disabled" disabled="disabled' : ''}" data-tooltip="-">-</button>`);
-    const plus = htmlElement('<button class="btn quantity-btn plus" data-tooltip="+">+</button>');
+    const minus = htmlElement(`<button class="btn quantity-btn minus${quantity == 1 ? ' disabled" disabled="disabled"' : '"'} data-tooltip="-">-</button>`);
+    const plus = htmlElement('<button class="btn quantity-btn plus" data-tooltip="+">+</button>');   //
     const xxbtn = htmlElement('<button class="btn action-btn delete" data-tooltip="x">✖</button>');
-    //minus.addEventListener('click', todo);
-    //plus.addEventListener('click', todo);
+    minus.addEventListener('click', ()=>{changeQuantity(item, -1);});
+    plus.addEventListener('click', ()=>{changeQuantity(item, 1);});
     xxbtn.addEventListener('click', deleteItem);
     
     item.querySelector(".quantity-controls").prepend(minus);    //insertAdjacentHTML('afterbegin', minus); 
     item.querySelector(".quantity-controls").append(plus);   //insertAdjacentHTML('beforeend', plus);
     item.querySelector(".action-buttons").append(xxbtn);
+}
+
+function changeQuantity(item, delta){
+    const element = item.querySelector('.quantity-value');
+    const prev = parseInt(element.textContent);
+    if(prev+delta >= 1 && delta != 0){
+        const btn = item.querySelector('.minus');
+        if(prev+delta === 1){
+            btn.classList.add('disabled');
+            btn.setAttribute("disabled", "disabled");
+        } else if(prev === 1){
+            btn.classList.remove('disabled');
+            btn.removeAttribute("disabled");
+        }
+        element.textContent = prev+delta;
+    }
 }
 
 function removeItemButtons(item){
