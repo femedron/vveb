@@ -36,7 +36,7 @@ function addItem(name = document.getElementById("item-add-text").value, quantity
     child.innerHTML =
         `<span class="item-name">${name}</span>
         <div class="quantity-controls">
-        <button class="btn quantity-btn minus ${quantity === 1 ? "disabled" : ""} data-tooltip="-">-
+        <button class="btn quantity-btn minus ${quantity == 1 ? 'disabled' : ''}" data-tooltip="-">-
         </button>
         <span class="quantity-value">${quantity}</span>
             <button class="btn quantity-btn plus" data-tooltip="+">+</button>
@@ -62,8 +62,20 @@ function changeBuyState(item, btn){
     if(item.classList.contains('bought')){
         item.classList.remove('bought');
         btn.textContent = "Куплено";
+
+        const quantity = item.querySelector(".quantity-value").textContent;
+        const minus = `<button class="btn quantity-btn minus ${quantity == 1 ? 'disabled' : ''}" data-tooltip="-">-</button>`;
+        const plus = '<button class="btn quantity-btn plus" data-tooltip="+">+</button>';
+        const xxbtn = '<button class="btn action-btn delete" data-tooltip="x">✖</button>';
+        item.querySelector(".quantity-controls").insertAdjacentHTML('afterbegin', minus);
+        item.querySelector(".quantity-controls").insertAdjacentHTML('beforeend', plus);
+        item.querySelector(".action-buttons").insertAdjacentHTML('beforeend', xxbtn);
     } else{
         item.classList.add('bought');
         btn.textContent = "Не куплено";
+
+        item.querySelector(".minus").remove();
+        item.querySelector(".plus").remove();
+        item.querySelector(".delete").remove();
     }
 }
