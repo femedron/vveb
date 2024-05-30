@@ -270,6 +270,10 @@ main{
 	transition: all 0.3s; 
 }
 
+.btn.action-btn.buy[data-tooltip]::after{
+	font-size: 12px;
+}
+
 .btn[data-tooltip]:hover::after{
 	transform: translateY(-70%); /* Position the tooltip above the container */
 	visibility: visible;

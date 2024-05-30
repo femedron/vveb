@@ -1,6 +1,5 @@
 window.onload = init;
 function init(){
-
     document.getElementById("item-add-btn").addEventListener("click", ()=>{addItem()});
     document.getElementById("item-add-text").addEventListener('keypress', (e)=>{
         if(e.key == "Enter"){
@@ -8,17 +7,6 @@ function init(){
             addItem();
         }
     })
-
-    //todo remove
-    document.querySelectorAll(".delete").forEach(btn => { btn.addEventListener('click', deleteItem);});
-
-    //todo remove
-    document.querySelectorAll('.item').forEach((item)=>{
-        item.querySelectorAll('.buy').forEach(btn =>{
-            btn.addEventListener('click', ()=>{ changeBuyState(item)});
-        });
-    });
-
     initItems();
 }
 
@@ -82,12 +70,12 @@ function getStatsItem(item){
 }
 
 function initItems(){
-    addItem("Памідор");
-    addItem("Один елбан", 1);
-    addItem("Два елбана", 2);
-    addItem("Три елбана", 3, false);
-    addItem("Дцп1", 1, true);
-    addItem("Дцп2", 2, true);
+    addItem("Помідор");
+    addItem("Банан", 1);
+    addItem("Сир", 1, true);
+    addItem("Печиво", 2);
+    addItem("Яблуко", 3, false);
+    addItem("Хліб", 2, true);
 }
 
 function deleteItem(e){
@@ -100,7 +88,7 @@ function deleteItem(e){
     }
 }
 
-function addItem(name = document.getElementById("item-add-text").value, quantity = 1, isDisabled = false){
+function addItem(name = document.getElementById("item-add-text").value, quantity = 1, isBought = false){
     const list = document.getElementsByClassName("items-list")[0];
     const child = document.createElement("div");
     child.className = "item";
@@ -122,7 +110,7 @@ function addItem(name = document.getElementById("item-add-text").value, quantity
     }
 
     updateStats(child,0);
-    if(isDisabled)
+    if(isBought)
         changeBuyState(child);    
 }
 
@@ -146,7 +134,7 @@ function addNameInputHandler(item){
 
 function addItemButtons(item, isFresh = false){
     if(isFresh){
-        const buyb = htmlElement('<button class="btn action-btn buy" data-tooltip="tooltip">Куплено</button>'); 
+        const buyb = htmlElement('<button class="btn action-btn buy" data-tooltip="Змінити стан покупки">Куплено</button>'); 
         buyb.addEventListener('click', ()=>{ changeBuyState(item)});
         item.querySelector(".action-buttons").append(buyb);
     }
