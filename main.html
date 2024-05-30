@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Page</title>
 
-
+    <script src="code.js"></script>
     <link rel="stylesheet" href="main.css" />
 </head>
 
@@ -15,78 +15,32 @@
         <div class="box items-box">
             <div class="item-add-field">
                 <input type="text" id="item-add-text" placeholder="Назва товару">
-                <button type="submit" id="item-add-button" class="btn" data-tooltip="Add">Додати</button>
+                <button type="submit" id="item-add-btn" class="btn" data-tooltip="Add">Додати</button>
             </div>
             <div class="items-list">
-                <div class="item">
-                    <span class="item-name bought">Помідори</span>
-                    <div class="quantity-controls">
-                        <!-- <input type="text" value="2" class="quantity-value"/> -->
-                        <span class="quantity-value">2</span>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn action-btn buy" data-tooltip="tooltip">Не куплено</button>
-                    </div>
-                </div>
 
-                <div class="item">
-                    <span class="item-name">Печиво</span>
-                    <div class="quantity-controls">
-                        <button class="btn quantity-btn minus" data-tooltip="-">-
-                        </button>
-                        <!-- <input type="text" value="2" class="quantity-value"/> -->
-                        <span class="quantity-value">2</span>
-                        <button class="btn quantity-btn plus" data-tooltip="+">+</button>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn action-btn buy" data-tooltip="tooltip">Куплено</button>
-                        <button class="btn action-btn delete" data-tooltip="x">✖</button>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <input type="text" class="item-name" value="Сир"/>
-                    <div class="quantity-controls">
-                        <button class="btn quantity-btn minus disabled" disabled="disabled" data-tooltip="-">
-                            -
-                        </button>
-                        <!-- <input type="text" value="2" class="quantity-value"/> -->
-                        <span class="quantity-value">1</span>
-                        <button class="btn quantity-btn plus" data-tooltip="+">+</button>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn action-btn buy" data-tooltip="tooltip">Куплено</button>
-                        <button class="btn action-btn delete" data-tooltip="x">✖</button>
-                    </div>
-                </div>
             </div>
         </div>
 
         <div class="box stats-box">
-            <span class="stats-category" style="border-radius: inherit;">Залишилося</span>
-            <div class="stats-items">
-                <span class="stats-item">
-                    Печиво
-			        <span class="amount">2</span>
-		        </span>
-                <span class="stats-item">
-                    Сир
-			        <span class="amount">1</span>
-		        </span>
+            <div>
+                <span class="stats-category" style="border-radius: inherit;">Залишилося</span>
+                <div class="stats-items">
+                    
+                </div>
             </div>
-            <span class="stats-category">Куплено</span>
-            <div class="stats-items bought">
-                <span class="stats-item">
-                    Помідори
-			        <span class="amount">2</span>
-		        </span>
+            <div class="bought">
+                <span class="stats-category">Куплено</span>
+                <div class="stats-items">
+                    
+                </div>
             </div>
         </div>
     </main>
     <div class="badge">
         <div class="badge-title">Buy list</div>
         <div class="badge-author">Created by:
-        <!-- <div class="badge-author">-->Stetsyk M.</div>
+        <!-- <div class="badge-author">-->S.M.</div>
     </div>
 </body>
 
