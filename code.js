@@ -88,7 +88,22 @@ function deleteItem(e){
     }
 }
 
+function checkItem(name){
+    let ret = false;
+    document.querySelectorAll('.item').forEach((item)=>{
+        if(item.querySelector('.item-name').textContent == name){
+            ret = true;
+            return;
+        }
+    });
+    return ret;
+}
+
 function addItem(name = document.getElementById("item-add-text").value, quantity = 1, isBought = false){
+    if(checkItem(name)){
+        window.alert('Item with such name is already in list');
+        return;
+    }
     const list = document.getElementsByClassName("items-list")[0];
     const child = document.createElement("div");
     child.className = "item";
